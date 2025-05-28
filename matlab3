@@ -1,0 +1,196 @@
+1-savol
+
+Second code:
+
+[x, y] = meshgrid(-4:0.1:4, -3:0.1:3);
+z = (x.^2)/4 - 2*(sin(0.7*y)).^2;
+surf(x, y, z);
+xlabel('x'); ylabel('y'); zlabel('Z');
+title('Z = x^2/4 - 2sin^2(0.7y)');
+
+
+
+
+% We use the 'linspace' function to create vectors of evenly spaced points
+% for x and y within the specified ranges. We choose a number of points (e.g., 50)
+% to create a sufficiently smooth surface.
+x = linspace(-4, 4, 50);
+y = linspace(-3, 3, 50);
+
+% The 'meshgrid' function takes the vectors x and y and returns 2D arrays X and Y.
+% These arrays represent the coordinates of a grid in the xy-plane. Each row of X
+% contains the same x-value, and each column of Y contains the same y-value.
+1-savol
+
+Second code:
+
+[x, y] = meshgrid(-4:0.1:4, -3:0.1:3);
+z = (x.^2)/4 - 2*(sin(0.7*y)).^2;
+surf(x, y, z);
+xlabel('x'); ylabel('y'); zlabel('Z');
+title('Z = x^2/4 - 2sin^2(0.7y)');
+
+
+
+
+% We use the 'linspace' function to create vectors of evenly spaced points
+% for x and y within the specified ranges. We choose a number of points (e.g., 50)
+% to create a sufficiently smooth surface.
+x = linspace(-4, 4, 50);
+y = linspace(-3, 3, 50);
+
+% The 'meshgrid' function takes the vectors x and y and returns 2D arrays X and Y.
+% These arrays represent the coordinates of a grid in the xy-plane. Each row of X
+% contains the same x-value, and each column of Y contains the same y-value.
+% Let's define the values given in the problem
+R = 4;      % Resistance (in Ohms)
+L = 1.3;    % Inductance (in Henrys)
+V = 12;     % Voltage (in Volts)
+
+% We need to plot the current from time t = 0 to t = 2 seconds.
+% Let's create a list of time points using 'linspace'.
+% 'linspace(start, end, number_of_points)' gives us evenly spaced points.
+t = linspace(0, 2, 100); % From 0 to 2 seconds, with 100 points in between
+
+% We'll create an empty list to store the current values at each time point.
+i = zeros(size(t)); % 'zeros(size(t))' makes a list of zeros with the same size as 't'
+
+% Now, we need to calculate the current using the formulas given for different time periods.
+% We'll use a 'for' loop to go through each time point in our list 't'.
+for k = 1:length(t) % 'length(t)' gives us the number of time points
+    if t(k) <= 0.5 % For the time interval 0 <= t <= 0.5 seconds
+        % Apply the first formula: i(t) = (V/R) * (1 - exp(-(R*t)/L))
+        i(k) = (V/R) * (1 - exp(-(R*t(k))/L));
+        % 'exp()' is the function for the exponential (e to the power of something)
+    else % For the time interval t > 0.5 seconds
+        % Apply the second formula: i(t) = (V/R) * exp(-(R*(t-0.5))/L) * (1 - exp(-(R*0.5)/L))
+        i(k) = (V/R) * exp(-(R*(t(k)-0.5))/L) * (1 - exp(-(R*0.5)/L));
+    end
+end
+
+% Now that we have the current values for each time point, let's plot them.
+% We use the 'plot' function with time 't' on the x-axis and current 'i' on the y-axis.
+plot(t, i);
+
+% Let's add labels to the axes so we know what we're plotting.
+xlabel('Time (s)'); % Label for the horizontal axis (time in seconds)
+ylabel('Current (A)'); % Label for the vertical axis (current in Amperes)
+
+% And let's add a title to the plot.
+title('Current in an RL Circuit with a Pulsed Voltage Source');
+
+% Finally, let's add a grid to the plot to make it easier to read values (optional).
+grid on;
+3-savol
+
+
+% Parameters
+F = 100000; % Target amount
+r = 4.35 / 100; % Annual interest rate (decimal)
+years = 5:10; % Years to calculate for
+
+% Display table header
+disp('-------------------------');
+disp('  Years | Monthly Deposit ');
+disp('-------------------------');
+
+% Calculate and display monthly deposit for each year
+for N = years
+    monthly_rate = r / 12;
+    periods = 12 * N;
+    P = F * monthly_rate / ((1 + monthly_rate)^periods - 1);
+    fprintf('   %2d  |   $%8.2f   \n', N, P);
+end
+
+disp('-------------------------');
+
+
+4-savol
+
+
+
+% Formula for BFP: BFP = 1.2 * BMI + 0.23 * Age - 10.8 * Gender - 0.54
+% Formula for BMI: BMI = 703 * W / H^2 (W = weight in pounds, H = height in inches)
+% Gender: 1 for male, 0 for female
+
+% -------------------- Function Definition --------------------
+function bfp = BodyFat(w, h, age, gen)
+% BodyFat: Calculates the Body Fat Percentage (BFP).
+%   bfp = BodyFat(w, h, age, gen) returns the BFP for a person
+%   with weight w (pounds), height h (inches), age (years), and
+%   gender gen (1 for male, 0 for female).
+
+    % Calculate Body Mass Index (BMI)
+bmi = 703 * w / (h^2);
+
+    % Calculate Body Fat Percentage (BFP) using the formula
+    bfp = 1.2 * bmi + 0.23 * age - 10.8 * gen - 0.54;
+
+end
+% -------------------- End of Function Definition --------------------
+
+% Now, let's use this function to calculate the BFP for the two individuals.
+
+% a) 35-year-old male, height 74 inches, weight 220 pounds.
+weight_a = 220;   % pounds
+height_a = 74;    % inches
+age_a = 35;       % years
+gender_a = 1;     % 1 for male
+
+% Call the BodyFat function to calculate BFP for individual a
+bfp_a = BodyFat(weight_a, height_a, age_a, gender_a);
+
+% Display the result for individual a
+fprintf('a) 35-year-old male (74 inches, 220 pounds): BFP = %.2f%%\n', bfp_a);
+
+% b) 22-year-old female, height 67 inches, weight 135 pounds.
+weight_b = 135;   % pounds
+height_b = 67;    % inches
+age_b = 22;       % years
+gender_b = 0;     % 0 for female
+
+% Call the BodyFat function to calculate BFP for individual b
+bfp_b = BodyFat(weight_b, height_b, age_b, gender_b);
+
+% Display the result for individual b
+fprintf('b) 22-year-old female (67 inches, 135 pounds): BFP = %.2f%%\n', bfp_b);
+
+
+
+
+5-savol
+
+% Problem: Estimate the value of pi using the formula: pi ≈ sqrt(6 * sum(1/n^2))
+% Set the output format to long for higher precision
+format long;
+
+% Values of n for which to estimate pi
+n_values = [100, 10000, 1000000];
+
+% Loop through each value of n
+for n = n_values
+    % Initialize the sum to zero
+    series_sum = 0;
+
+    % Calculate the sum of the first n terms of the series
+    for i = 1:n
+        series_sum = series_sum + 1/(i^2);
+    end
+
+    % Estimate pi using the formula
+    pi_estimated = sqrt(6 * series_sum);
+
+    % Get the built-in value of pi for comparison
+    pi_actual = pi;
+
+    % Calculate the difference between the estimated and actual value of pi
+    difference = abs(pi_estimated - pi_actual);
+
+    % Display the results for the current value of n
+    fprintf('For n = %d:\n', n);
+    fprintf('  Estimated value of pi: %.15f\n', pi_estimated);
+    fprintf('  Actual value of pi:    %.15f\n', pi_actual);
+    fprintf('  Difference:            %.15f\n\n', difference);
+end
+
+
