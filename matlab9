@@ -1,0 +1,206 @@
+1-savol
+
+% Define the range of x values from -pi to pi
+x = linspace(-pi, pi, 100);
+
+% Define the range of y values from -pi to pi
+y = linspace(-pi, pi, 100);
+
+% Create a grid of x and y values
+[X, Y] = meshgrid(x, y);
+
+% Calculate the corresponding z values using the function z = cos(xy) * cos(x^2 + y^2)
+Z = cos(X.*Y) .* cos(X.^2 + Y.^2);
+
+% Create a new figure window
+figure;
+
+% Use the surf function to create the 3D surface plot
+surf(X, Y, Z);
+
+% Add labels to the x, y, and z axes
+xlabel('x');
+ylabel('y');
+zlabel('z');
+
+% Add a title to the plot (in Uzbek as in the problem)
+title('z = cos(xy) cos(x^2 + y^2) funksiyasining 3D sirt grafigi');
+
+% Add a colorbar to show the mapping of z values to colors
+colorbar;
+
+% Optional: Add a grid for better visualization
+grid on;
+1-savol
+
+% Define the range of x values from -pi to pi
+x = linspace(-pi, pi, 100);
+
+% Define the range of y values from -pi to pi
+y = linspace(-pi, pi, 100);
+
+% Create a grid of x and y values
+[X, Y] = meshgrid(x, y);
+
+% Calculate the corresponding z values using the function z = cos(xy) * cos(x^2 + y^2)
+Z = cos(X.*Y) .* cos(X.^2 + Y.^2);
+
+% Create a new figure window
+figure;
+
+% Use the surf function to create the 3D surface plot
+surf(X, Y, Z);
+
+% Add labels to the x, y, and z axes
+xlabel('x');
+ylabel('y');
+zlabel('z');
+
+% Add a title to the plot (in Uzbek as in the problem)
+title('z = cos(xy) cos(x^2 + y^2) funksiyasining 3D sirt grafigi');
+
+% Add a colorbar to show the mapping of z values to colors
+colorbar;
+
+% Optional: Add a grid for better visualization
+grid on;
+2-savol
+
+% Funksiyani aniqlash
+f = @(x) x + 1./(x.^2 - 1);
+
+% Asimptotalardan qochib, x diapazonlarini aniqlash
+x1 = linspace(-4, -1.1, 100);
+x2 = linspace(-0.9, 0.9, 100);
+x3 = linspace(1.1, 4, 100);
+
+% Har bir x diapazoni uchun y qiymatlarini hisoblash
+y1 = f(x1);
+y2 = f(x2);
+y3 = f(x3);
+
+% Yangi figura yaratish
+figure;
+
+% Funksiyani uch qismda chizish
+plot(x1, y1, 'b');
+hold on;
+plot(x2, y2, 'r');
+plot(x3, y3, 'g');
+
+% X o'qi diapazonini o'rnatish
+xlim([-4 4]);
+
+% Y o'qi diapazonini o'rnatish
+ylim([-15 15]);
+
+% O'qlarga belgi qo'yish
+xlabel('x');
+ylabel('f(x)');
+
+% Grafikga sarlavha berish (o'zbek tilida, masaladagidek)
+title('f(x) = x + 1/(x^2 - 1) funksiyasi grafigi');
+% Afsona qo'shish
+legend('Qism 1 (-4 dan -1 gacha)', 'Qism 2 (-1 dan 1 gacha)', 'Qism 3 (1 dan 4 gacha)');
+
+% Asimptotalarni belgilash uchun vertikal chiziqlar (ixtiyoriy)
+plot([-1 -1], ylim, 'k--');
+plot([1 1], ylim, 'k--');
+
+hold off;
+
+
+
+
+
+3-savol
+
+% Berilgan qiymatlar
+F = 100000;     % Kelajakdagi qiymat ($)
+r_annual = 4.35; % Yillik foiz stavkasi (%)
+r = r_annual / 100;  % Yillik foiz stavkasi (o'nlik)
+yillar = 5:10;     % Yillar soni
+
+% Jadvalning sarlavhasini chiqarish
+disp('-------------------------');
+disp('  Yillar | Oylik to''lov ');
+disp('-------------------------');
+
+% Har bir yil uchun oylik to'lovni hisoblash va chiqarish
+for N = yillar
+    oylik_stavka = r / 12;
+    davrlar_soni = 12 * N;
+    P = F * oylik_stavka / ((1 + oylik_stavka)^davrlar_soni - 1);
+    fprintf('   %2d  |   $%8.2f   \n', N, P);
+end
+
+% Jadvalning pastki qismini chiqarish
+disp('-------------------------');
+4-savol
+
+function bfp = BodyFat(w, h, age, gen)
+% BodyFat: Calculates the body fat percentage (BFP).
+%   BFP = BodyFat(w, h, age, gen) returns the body fat percentage
+%   for a given weight (w in pounds), height (h in inches), age (in years),
+%   and gender (gen: 1 for male, 0 for female).
+
+    % Calculate Body Mass Index (BMI)
+    bmi = 703 * w / (h^2);
+
+    % Calculate Body Fat Percentage (BFP)
+    bfp = 1.2 * bmi + 0.23 * age - 10.8 * gen - 5.4;
+end
+
+% --- Calculate BFP for the given individuals ---
+
+% a) 35-year-old male, height 74 inches, weight 220 pounds.
+weight_a = 220;
+height_a = 74;
+age_a = 35;
+gender_a = 1; % Male
+bfp_a = BodyFat(weight_a, height_a, age_a, gender_a);
+fprintf('a) 35 yoshli erkakning tana yog'' ulushi: %.2f%%\n', bfp_a);
+
+% b) 22-year-old female, height 67 inches, weight 135 pounds.
+weight_b = 135;
+height_b = 67;
+age_b = 22;
+gender_b = 0; % Female
+bfp_b = BodyFat(weight_b, height_b, age_b, gender_b);
+fprintf('b) 22 yoshli ayolning tana yog'' ulushi: %.2f%%\n', bfp_b);
+
+
+
+5-savol
+
+% Imtihonda olingan baholar ro'yxati
+baholar = [31, 70, 92, 5, 47, 88, 81, 73, 51, 76, 80, 90, 55, 23, 43, 98, 36, 87, 22, 61, 19, 69, 26, 82, 89, 99, 71, 59, 49, 64];
+% Har bir oraliq uchun hisoblagichlarni initsializatsiya qilish
+oralik1_hisobi = 0; % 0 dan 19 gacha
+oralik2_hisobi = 0; % 20 dan 39 gacha
+oralik3_hisobi = 0; % 40 dan 59 gacha
+oralik4_hisobi = 0; % 60 dan 79 gacha
+oralik5_hisobi = 0; % 80 dan 100 gacha
+
+% Baholar ro'yxati bo'ylab iteratsiya qilish va hisoblagichlarni yangilash
+for i = 1:length(baholar)
+    if baholar(i) >= 0 && baholar(i) <= 19
+        oralik1_hisobi = oralik1_hisobi + 1;
+    elseif baholar(i) >= 20 && baholar(i) <= 39
+        oralik2_hisobi = oralik2_hisobi + 1;
+    elseif baholar(i) >= 40 && baholar(i) <= 59
+        oralik3_hisobi = oralik3_hisobi + 1;
+    elseif baholar(i) >= 60 && baholar(i) <= 79
+        oralik4_hisobi = oralik4_hisobi + 1;
+    elseif baholar(i) >= 80 && baholar(i) <= 100
+        oralik5_hisobi = oralik5_hisobi + 1;
+    end
+end
+
+% Natijalarni ko'rsatish
+fprintf('          0 dan 19 gacha bo''lgan baholar                                %d ta talaba\n', oralik1_hisobi);
+fprintf('          20 dan 39 gacha bo''lgan baholar                               %d ta talaba\n', oralik2_hisobi);
+fprintf('          40 dan 59 gacha bo''lgan baholar                               %d ta talaba\n', oralik3_hisobi);
+fprintf('          60 dan 79 gacha bo''lgan baholar                               %d ta talaba\n', oralik4_hisobi);
+fprintf('          80 dan 100 gacha bo''lgan baholar                              %d ta talaba\n', oralik5_hisobi);
+
