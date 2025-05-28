@@ -1,0 +1,170 @@
+1-savol
+
+% Vaqt oralig'ini aniqlash
+t = linspace(0, 20, 500); % Silliq egri chiziq uchun 500 ta nuqta ishlatamiz
+
+% x, y va z koordinatalarini hisoblash
+x = 0.01 * (30 - t).^2 .* sin(2*t);
+y = 0.01 * (30 - t).^2 .* cos(2*t);
+z = 0.5 * t.^(1.5);
+
+% Yangi figura oynasini yaratish
+figure;
+
+% 3D fazoda trayektoriyani chizish
+plot3(x, y, z);
+
+% O'qlarga etiketlar qo'shish
+xlabel('x');
+ylabel('y');
+zlabel('z');
+
+% Grafikga sarlavha qo'shish (o'zbek tilida, masaladagidek)
+title('Harakatlanuvchi zarrachaning holati');
+% Yaxshiroq vizualizatsiya uchun panjara qo'shish (ixtiyoriy)
+grid on;
+
+% Koordinata o'qlarining masshtabini bir xilda saqlash (ixtiyoriy)
+axis equal;
+
+
+
+2-savol
+
+% Berilgan parametrlar
+R = 4;      % Qarshilik (Om)
+L = 1.3;    % Induktor (Genri)
+V = 12;     % Kuchlanish (Volt)
+
+% Vaqt vektori 0 dan 2 sekundgacha kichik qadam bilan silliq grafik uchun
+t = linspace(0, 2, 500);
+
+% Tok vektorini initsializatsiya qilish
+i = zeros(size(t));
+
+% Har bir vaqt nuqtasi uchun tokni hisoblash
+for index = 1:length(t)
+    if t(index) >= 0 && t(index) <= 0.5
+        i(index) = (V/R) * (1 - exp(-(R*t(index))/L));
+    elseif t(index) > 0.5
+        i(index) = (V/R) * exp(-(R*t(index))/L) * (exp((0.5*R)/L) - 1);
+    end
+end
+
+% Yangi figura oynasini yaratish
+figure;
+
+% Tokni vaqt funksiyasi sifatida chizish
+plot(t, i);
+
+% O'qlarga etiketlar qo'shish
+xlabel('t (s)');
+ylabel('i (A)');
+% Grafikga sarlavha qo'shish
+title('RL zanjiridagi tok');
+
+% Yaxshiroq vizualizatsiya uchun panjara qo'shish
+grid on;
+
+
+
+
+3-savol
+
+
+% Berilgan qiymatlar
+F = 200000;         % Kelajakdagi qiymat ($)
+r_annual = 4.85;     % Yillik foiz stavkasi (%)
+r = r_annual / 100;  % Yillik foiz stavkasi (o'nlik)
+yillar = 10:15;       % Yillar soni
+
+% Jadvalning sarlavhasini chiqarish
+disp('-------------------------');
+disp('  Yillar | Oylik to''lov ');
+disp('-------------------------');
+
+% Har bir yil uchun oylik to'lovni hisoblash va chiqarish
+for N = yillar
+    oylik_stavka = r / 12;
+    davrlar_soni = 12 * N;
+    P = F * oylik_stavka / ((1 + oylik_stavka)^davrlar_soni - 1);
+    fprintf('   %2d  |   $%8.2f   \n', N, P);
+end
+
+% Jadvalning pastki qismini chiqarish
+disp('-------------------------');
+
+
+
+4-savol
+
+function GPA = GradePtAve(G, C)
+% GPA = GradePtAve(G, C) hisoblaydi o'rtacha baho (GPA).
+% Kirish argumenti G - fanlardagi baholarning raqamli qiymatlari bo'lgan vektor.
+% Kirish argumenti C - mos ravishda fanlar bo'yicha tegishli kredit soatlari bo'lgan vektor.
+% Chiqish argumenti GPA - hisoblangan GPA qiymati.
+
+    points = zeros(size(G)); % Baholar uchun ballarni saqlash uchun vektor
+
+    % Har bir bahoni ballga aylantirish
+    for i = 1:length(G)
+        if strcmp(G{i}, 'A')
+            points(i) = 5;
+        elseif strcmp(G{i}, 'B')
+            points(i) = 4;
+        elseif strcmp(G{i}, 'C')
+            points(i) = 3;
+        elseif strcmp(G{i}, 'D')
+            points(i) = 2;
+        elseif strcmp(G{i}, 'F')
+            points(i) = 0;
+        end
+    end
+
+    % Kredit soatlariga ko'paytirilgan ballar yig'indisini hisoblash
+    total_points = sum(points .* C);
+
+    % Kredit soatlari yig'indisini hisoblash
+    total_credits = sum(C);
+
+    % GPA ni hisoblash
+    GPA = total_points / total_credits;
+
+end
+
+% Talabaning baholari va kredit soatlari
+grades = {'A', 'B', 'F', 'C', 'B', 'A', 'D', 'A'};
+credits = [4, 3, 3, 2, 3, 4, 3, 3];
+
+% GPA ni hisoblash uchun funksiyani chaqirish
+student_gpa = GradePtAve(grades, credits);
+
+% Natijani ko'rsatish
+fprintf('Talabaning GPA si: %.2f\n', student_gpa);
+5-savol
+
+% Ushbu ifodani (birinchi n ta hadning yig'indisi orqali) baholovchi dastur
+
+% N qiymatlari
+n_qiymatlari = [100, 10000, 1000000];
+
+% Pi ning qiymatini hisoblash
+pi_qiymati = pi;
+pi_kvadrati_boluv_6 = pi_qiymati^2 / 6;
+
+% Natijalarni uzun formatda chiqarish
+format long;
+
+% Har bir n qiymati uchun yig'indini hisoblash
+for i = 1:length(n_qiymatlari)
+    n = n_qiymatlari(i);
+    sum_n = 0;
+    for j = 1:n
+        sum_n = sum_n + 1 / (j^2);
+    end
+    fprintf('n = %d uchun yig''indi: %20.16f\n', n, sum_n);
+    fprintf('Haqiqiy qiymat (pi^2 / 6): %20.16f\n', pi_kvadrati_boluv_6);
+    farq = abs(sum_n - pi_kvadrati_boluv_6);
+    fprintf('Farq: %20.16f\n\n', farq);
+end
+
