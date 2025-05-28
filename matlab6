@@ -1,0 +1,163 @@
+1-savol
+
+% Define the range of x values from -2 to 2
+x = linspace(-2, 2, 50);
+
+% Define the range of y values from -2 to 2
+y = linspace(-2, 2, 50);
+
+% Create a grid of x and y values
+[X, Y] = meshgrid(x, y);
+
+% Calculate the corresponding z values using the function z = 0.5 * |x| + 0.5 * |y|
+Z = 0.5 * abs(X) + 0.5 * abs(Y);
+
+% Create a new figure window
+figure;
+
+% Use the surf function to create the 3D surface plot
+surf(X, Y, Z);
+
+% Add labels to the x, y, and z axes
+xlabel('x');
+ylabel('y');
+zlabel('z');
+% Add a title to the plot
+title('3D Surface Plot of z = 0.5|x| + 0.5|y|');
+
+% Add a colorbar to show the mapping of z values to colors
+colorbar;
+
+% Optional: Add a grid for better visualization
+grid on;
+
+
+
+2-savol
+
+% Define the function
+f = @(x) (x.^2 + 3*x - 5) ./ (x.^2 - 3*x - 10);
+
+% Define the x ranges, avoiding the asymptotes at -2 and 5
+x1 = linspace(-4, -2.1, 100);
+x2 = linspace(-1.9, 4.9, 100);
+x3 = linspace(5.1, 9, 100);
+
+% Calculate the y values for each x range
+y1 = f(x1);
+y2 = f(x2);
+y3 = f(x3);
+
+% Create a new figure
+figure;
+
+% Plot the function in three parts
+plot(x1, y1, 'b');
+hold on;
+plot(x2, y2, 'r');
+plot(x3, y3, 'g');
+
+% Set the x-axis range
+xlim([-4 9]);
+
+% Set the y-axis range
+ylim([-20 20]);
+
+% Add labels to the axes
+xlabel('x');
+ylabel('f(x)');
+
+% Add a title to the plot
+title('Graph of f(x) = (x^2 + 3x - 5) / (x^2 - 3x - 10)');
+
+% Add a legend
+legend('Part 1 (-4 to -2)', 'Part 2 (-2 to 5)', 'Part 3 (5 to 9)');
+
+% Optional: Add vertical lines to mark the asymptotes
+plot([-2 -2], ylim, 'k--');
+plot([5 5], ylim, 'k--');
+hold off;
+
+
+
+3-savol
+
+
+% Given values
+F = 200000;     % Future value
+r_annual = 4.85; % Annual interest rate
+r = r_annual / 100;
+years = 10:15;
+
+% Display header
+disp('-------------------------');
+disp('  Years | Monthly Deposit ');
+disp('-------------------------');
+
+% Calculate and display monthly deposit for each year
+for N = years
+    monthly_rate = r / 12;
+    number_of_periods = 12 * N;
+    P = F * monthly_rate / ((1 + monthly_rate)^number_of_periods - 1);
+    fprintf('   %2d  |   $%8.2f   \n', N, P);
+end
+% Display footer
+disp('-------------------------');
+
+
+4-savol
+
+function GM = Geomean(x)
+% Geomean: Calculates the geometric mean of a vector of positive numbers.
+%   GM = Geomean(x) returns the geometric mean of the elements in the vector x.
+    n = length(x);
+    product_of_elements = prod(x);
+    GM = product_of_elements^(1/n);
+end
+
+% IBM stock returns for the last ten years (from the table)
+returns = [1.38, 1.76, 1.17, 0.79, 1.42, 0.64, 1.20, 1.06, 0.83, 1.18];
+
+% Calculate the geometric mean of the returns using the Geomean function
+average_return = Geomean(returns);
+
+% Display the result
+fprintf('The average return of IBM stock over the last ten years is: %.4f\n', average_return);
+
+
+
+5-savol
+% Program to count elements in a user-defined vector
+
+% Prompt the user to enter a vector of integers
+user_vector = input('Enter a vector of integers: ');
+
+% Calculate the total number of elements
+total_elements = length(user_vector);
+
+% Initialize counters for positive and negative divisible by 3 elements
+positive_count = 0;
+negative_divisible_by_3_count = 0;
+
+% Iterate through the vector to count elements
+for element = user_vector
+    if element > 0
+        positive_count = positive_count + 1;
+    elseif element < 0 && mod(element, 3) == 0
+        negative_divisible_by_3_count = negative_divisible_by_3_count + 1;
+    end
+end
+
+% Display the results in the specified sentence format
+fprintf('Vektorda %d ta element mavjud. %d ta elementlar musbat va %d ta elementlar manfiy va 3 ga bo''linadi.\n', ...
+    total_elements, positive_count, negative_divisible_by_3_count);
+
+% --- Instructions for running the program as requested ---
+% 1. Save this code as a .m file (e.g., count_elements.m).
+% 2. Open MATLAB.
+% 3. Navigate to the directory where you saved the file.
+% 4. Type `count_elements` in the MATLAB command window and press Enter.
+% 5. When the program prompts "Enter a vector of integers: ", type the following and press Enter:
+%    `randi([-20 20], 1, 16)`
+%    This will generate a 1x16 vector of random integers between -20 and 20.
+% 6. The program will then display the results based on the generated vector.
