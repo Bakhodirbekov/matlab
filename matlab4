@@ -1,0 +1,175 @@
+1-savol
+
+% Problem: Plot the 3D surface of the function z = cos(0.7x + 0.7y) * cos(0.7x - 0.7y)
+%          for -pi <= x <= pi and -pi <= y <= pi.
+
+% Define the range of x values from -pi to pi.
+% We'll use 'linspace' to create a set of evenly spaced points.
+% Let's use 50 points for a reasonably smooth surface.
+x = linspace(-pi, pi, 50);
+
+% Define the range of y values from -pi to pi (same as x in this case).
+y = linspace(-pi, pi, 50);
+
+% Now, we need to create a grid of (x, y) points.
+% 'meshgrid' takes the x and y vectors and returns 2D arrays X and Y.
+[X, Y] = meshgrid(x, y);
+% Each row of X corresponds to a y value, and each column of Y corresponds to an x value.
+
+% Calculate the corresponding z values for each (x, y) point using the given function:
+% z = cos(0.7x + 0.7y) * cos(0.7x - 0.7y)
+% We use element-wise multiplication and operations ('.*', '.*') because X and Y are arrays.
+Z = cos(0.7*X + 0.7*Y) .* cos(0.7*X - 0.7*Y);
+
+% Now, we can create the 3D surface plot using the 'surf' function.
+% 'surf(X, Y, Z)' takes the x, y, and z values at each point to draw the surface.
+surf(X, Y, Z);
+
+% Let's add labels to the x, y, and z axes so we know what they represent.
+xlabel('x');
+ylabel('y');
+zlabel('z');
+
+% Add a title to the plot to describe what it shows.
+title('3D Surface Plot of z = cos(0.7x + 0.7y) * cos(0.7x - 0.7y)');
+
+% We can also add a colorbar to the side of the plot.
+% The colorbar shows the mapping of z-values to colors on the surface.
+colorbar;
+
+% Optional: You can add a grid to the plot for better visualization.
+grid on;
+
+
+
+
+2-savol
+
+
+t = linspace(-4, 4, 100);
+
+% Now, we calculate the x and y coordinates for each value of 't' using the given equations.
+x = (3.3 - 0.4 * t.^2) .* sin(t);
+y = (2.5 - 0.3 * t.^2) .* cos(t);
+% We use '.*' for element-wise multiplication and '.^' for element-wise power.
+
+% Create a new figure window to show the plot.
+figure;
+
+% Use the 'plot' function to plot y versus x.
+plot(x, y);
+
+% Set the range for the x-axis from -3 to 3.
+xlim([-3 3]);
+
+% Set the range for the y-axis from -1 to 3.
+ylim([-1 3]);
+
+% Add a label to the x-axis.
+xlabel('x');
+
+% Add a label to the y-axis.
+ylabel('y');
+
+% Add a title to the plot.
+title('Pretzel Shape');
+
+% Optional: Add a grid to the plot for better visualization.
+grid on;
+
+
+
+3-savol
+
+F = 200000;
+r = 0.0485;
+years = 10:15;
+
+disp('-----------------------------------');
+disp('  Number of Years |   Monthly Deposit ($)  ');
+disp('-----------------------------------');
+
+for N = years
+    monthly_rate = r / 12;
+    number_of_periods = 12 * N;
+    P = F * monthly_rate / ((1 + monthly_rate)^number_of_periods - 1);
+    fprintf('       %2d        |      $%10.2f       \n', N, P);
+end
+
+disp('-----------------------------------');
+
+
+4-savol
+
+function d2 = det2by2(M)
+    d2 = M(1,1) * M(2,2) - M(1,2) * M(2,1);
+end
+
+function d3 = det3by3(A)
+    a11 = A(1,1);
+a12 = A(1,2);
+    a13 = A(1,3);
+    a21 = A(2,1);
+    a22 = A(2,2);
+    a23 = A(2,3);
+    a31 = A(3,1);
+    a32 = A(3,2);
+    a33 = A(3,3);
+
+    sub_matrix_1 = [a22 a23; a32 a33];
+    det_sub_1 = det2by2(sub_matrix_1);
+
+    sub_matrix_2 = [a21 a23; a31 a33];
+    det_sub_2 = det2by2(sub_matrix_2);
+
+    sub_matrix_3 = [a21 a22; a31 a32];
+    det_sub_3 = det2by2(sub_matrix_3);
+
+    d3 = a11 * det_sub_1 - a12 * det_sub_2 + a13 * det_sub_3;
+end
+
+A = [1 3 2; 6 5 4; 7 8 9];
+determinant_A = det3by3(A);
+fprintf('Determinant of matrix A:\n');
+disp(A);
+fprintf('is: %f\n\n', determinant_A);
+
+B = [-2.5 7 1; 5 -3 -2.6; 4 2 -1];
+determinant_B = det3by3(B);
+fprintf('Determinant of matrix B:\n');
+disp(B);
+fprintf('is: %f\n', determinant_B);
+
+
+
+5-savol
+
+
+% Script to find the real roots of a quadratic equation ax^2 + bx + c = 0
+
+% Prompt the user to enter the coefficients
+a = input('Enter the coefficient a: ');
+b = input('Enter the coefficient b: ');
+c = input('Enter the coefficient c: ');
+
+% Calculate the discriminant
+D = b^2 - 4*a*c;
+
+% Check the value of the discriminant
+if D > 0
+    % Two distinct real roots
+    x1 = (-b + sqrt(D)) / (2*a);
+    x2 = (-b - sqrt(D)) / (2*a);
+    disp('Tenglama ikkita ildizga ega:'); % The equation has two roots
+    fprintf('Ildiz 1: %f\n', x1);       % Root 1
+    fprintf('Ildiz 2: %f\n', x2);       % Root 2
+elseif D == 0
+    % One real root (repeated)
+    x = -b / (2*a);
+    disp('Tenglama bitta ildizga ega:');  % The equation has one root
+    fprintf('Ildiz: %f\n', x);          % Root
+else
+    % No real roots
+    disp('Tenglamaning ildizlari yo''q.'); % The equation has no real roots
+end
+
