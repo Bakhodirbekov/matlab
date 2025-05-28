@@ -1,0 +1,153 @@
+1-savol
+
+% Define the range of x values from -10 to 10
+x = linspace(-10, 10, 100);
+
+% Define the range of y values from -10 to 10
+y = linspace(-10, 10, 100);
+
+% Create a grid of x and y values
+[X, Y] = meshgrid(x, y);
+
+% Calculate R
+R = sqrt(X.^2 + Y.^2) / 2;
+
+% Calculate Z, handling the case where R is 0 to avoid division by zero
+Z = sin(R) ./ R;
+Z(R == 0) = 1; % Set Z=1 where R=0 (limit of sin(R)/R as R->0)
+
+% Create a new figure window
+figure;
+
+% Use the surf function to create the 3D surface plot
+surf(X, Y, Z);
+
+% Add labels to the x, y, and z axes
+xlabel('x');
+ylabel('y');
+zlabel('Z');
+% Add a title to the plot
+title('3D Surface Plot of Z = sin(R)/R, where R = sqrt(x^2 + y^2)/2');
+
+% Add a colorbar to show the mapping of Z values to colors
+colorbar;
+
+% Optional: Add a grid for better visualization
+grid on;
+
+
+
+2-savol
+
+% Define the range of the parameter t
+t = linspace(0, 4*pi, 500); % Use 500 points for a smooth curve
+
+% Calculate the x and y coordinates using the parametric equations
+x = 13*cos(t) - 2*cos(6.5*t);
+y = 13*sin(t) - 2*sin(6.5*t);
+
+% Create a new figure window
+figure;
+
+% Plot the epicycloid
+plot(x, y);
+
+% Set the x-axis limits
+xlim([-20 20]);
+
+% Set the y-axis limits
+ylim([-20 20]);
+
+% Add labels to the x and y axes
+xlabel('x');
+ylabel('y');
+
+% Add a title to the plot
+title('Epicycloid');
+
+% Ensure the aspect ratio is equal so the shape is not distorted
+axis equal;
+% Add a grid for better visualization (optional)
+grid on;
+
+
+
+
+3-savol
+
+% Given values
+F = 100000;     % Future value
+r_annual = 4.35; % Annual interest rate
+r = r_annual / 100;
+years = 5:10;
+
+% Display header
+disp('-------------------------');
+disp('  Years | Monthly Deposit ');
+disp('-------------------------');
+
+% Calculate and display monthly deposit for each year
+for N = years
+    monthly_rate = r / 12;
+    number_of_periods = 12 * N;
+    P = F * monthly_rate / ((1 + monthly_rate)^number_of_periods - 1);
+    fprintf('   %2d  |   $%8.2f   \n', N, P);
+end
+
+% Display footer
+disp('-------------------------');
+
+
+
+
+4-savol
+
+function GM = Geomean(x)
+% Geomean: Calculates the geometric mean of a vector of positive numbers.
+%   GM = Geomean(x) returns the geometric mean of the elements in the vector x.
+    n = length(x);
+    product_of_elements = prod(x);
+GM = product_of_elements^(1/n);
+end
+
+% US inflation rates from 1978 to 1987 (from the table)
+inflation_rates = [1.076, 1.113, 1.135, 1.103, 1.062, 1.032, 1.043, 1.036, 1.019, 1.036];
+
+% Calculate the geometric mean of the inflation rates using the Geomean function
+average_inflation = Geomean(inflation_rates);
+
+% Display the result
+fprintf('The average inflation rate in the US from 1978 to 1987 is: %.4f\n', average_inflation);
+
+
+
+
+5-savol
+
+% Script to find the real roots of a quadratic equation ax^2 + bx + c = 0
+
+% Prompt the user to enter the coefficients
+a = input('Enter the coefficient a: ');
+b = input('Enter the coefficient b: ');
+c = input('Enter the coefficient c: ');
+
+% Calculate the discriminant
+D = b^2 - 4*a*c;
+
+% Check the value of the discriminant to determine the nature of the roots
+if D > 0
+    % Two distinct real roots
+    root1 = (-b + sqrt(D)) / (2*a);
+    root2 = (-b - sqrt(D)) / (2*a);
+    disp('Tenglama ikkita ildizga ega:');
+    fprintf('Ildiz 1: %.2f\n', root1);
+    fprintf('Ildiz 2: %.2f\n', root2);
+elseif D == 0
+    % One real root (repeated)
+    root = -b / (2*a);
+    disp('Tenglama bitta ildizga ega:');
+    fprintf('Ildiz: %.2f\n', root);
+else
+    % No real roots (discriminant is negative)
+    disp('Tenglamaning haqiqiy ildizlari yo''q.');
+end
