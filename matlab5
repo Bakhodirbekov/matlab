@@ -1,0 +1,156 @@
+1-savol
+
+% Define the range of x and y values
+x = linspace(-3, 3, 50);
+y = linspace(-3, 3, 50);
+
+% Create a grid of x and y values
+[X, Y] = meshgrid(x, y);
+
+% Calculate the corresponding Z values
+Z = (X.^2)/3 + 2*sin(3*Y);
+
+% Create a new figure window
+figure;
+
+% Use the surf function to create the 3D surface plot
+surf(X, Y, Z);
+
+% Add labels to the x, y, and z axes
+xlabel('x');
+ylabel('y');
+zlabel('Z');
+
+% Add a title to the plot
+title('3D Surface Plot of Z = x^2/3 + 2sin(3y)');
+
+% Add a colorbar to show the mapping of Z values to colors
+colorbar;
+
+% Add a grid for better visualization (optional)
+grid on;
+
+
+
+2-savol
+
+
+% Define the function
+f = @(x) (x.^2 - 4*x - 5) ./ (x.^2 - x - 6);
+% Define the x ranges, avoiding the asymptotes at -2 and 3
+x1 = linspace(-6, -2.1, 100);
+x2 = linspace(-1.9, 2.9, 100);
+x3 = linspace(3.1, 6, 100);
+
+% Calculate the y values for each x range
+y1 = f(x1);
+y2 = f(x2);
+y3 = f(x3);
+
+% Create a new figure
+figure;
+
+% Plot the function in three parts
+plot(x1, y1, 'b');
+hold on;
+plot(x2, y2, 'r');
+plot(x3, y3, 'g');
+
+% Set the x-axis range
+xlim([-6 6]);
+
+% Set the y-axis range
+ylim([-20 20]);
+
+% Add labels to the axes
+xlabel('x');
+ylabel('f(x)');
+
+% Add a title to the plot
+title('Graph of f(x) = (x^2 - 4x - 5) / (x^2 - x - 6)');
+
+% Add a legend
+legend('Part 1 (-6 to -2)', 'Part 2 (-2 to 3)', 'Part 3 (3 to 6)');
+
+% Optional: Add vertical lines to mark the asymptotes
+plot([-2 -2], ylim, 'k--');
+plot([3 3], ylim, 'k--');
+
+hold off;
+3-savol
+
+
+% Given values
+F = 100000;     % Future value
+r_annual = 4.35; % Annual interest rate
+r = r_annual / 100;
+years = 5:10;
+
+% Display header
+disp('-------------------------');
+disp('  Years | Monthly Deposit ');
+disp('-------------------------');
+
+% Calculate and display monthly deposit for each year
+for N = years
+    monthly_rate = r / 12;
+    number_of_periods = 12 * N;
+    P = F * monthly_rate / ((1 + monthly_rate)^number_of_periods - 1);
+    fprintf('   %2d  |   $%8.2f   \n', N, P);
+end
+
+% Display footer
+disp('-------------------------');
+
+
+
+4-savol
+
+
+function H = Harmean(x)
+% Harmean: Calculates the harmonic mean of a vector of numbers.
+%   H = Harmean(x) returns the harmonic mean of the elements in the vector x.
+    n = length(x);
+    sum_of_reciprocals = sum(1./x);
+    H = n / sum_of_reciprocals;
+end
+
+% Resistances of the resistors connected in parallel (from the image)
+resistances = [250, 320, 550, 160, 1000]; % in Ohms
+% Calculate the equivalent resistance using the Harmean function
+equivalent_resistance = Harmean(resistances);
+
+% Display the result
+fprintf('The equivalent resistance of the parallel resistors is: %.2f Ohms\n', equivalent_resistance);
+
+
+
+
+5-savol
+
+
+% Given vector
+x = [4.5 5 -16.12 21.8 10.1 10 -16.11 5 14 -3 3 2];
+
+n = length(x);
+
+% Selection sort algorithm
+for i = 1:n-1
+    min_val = x(i);
+    min_idx = i;
+    for j = i+1:n
+        if x(j) < min_val
+            min_val = x(j);
+            min_idx = j;
+        end
+    end
+    % Swap the current element with the minimum element found
+    temp = x(i);
+    x(i) = x(min_idx);
+    x(min_idx) = temp;
+end
+
+% Display the sorted vector
+disp('Sorted vector x:');
+disp(x);
+
