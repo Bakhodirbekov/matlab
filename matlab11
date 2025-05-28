@@ -1,0 +1,165 @@
+1-savol
+
+% x va y qiymatlari diapazonini aniqlash
+x = linspace(-4, 4, 100);
+y = linspace(-3, 3, 100);
+
+% x va y qiymatlaridan grid yaratish
+[X, Y] = meshgrid(x, y);
+
+% z qiymatlarini funksiya yordamida hisoblash: z = -2sin^2(0.7y)
+Z = -2 * sin(0.7 * Y).^2;
+
+% Yangi figura oynasini yaratish
+figure;
+
+% 3D sirt plotini yaratish
+surf(X, Y, Z);
+
+% O'qlarga etiketlar qo'shish
+xlabel('x');
+ylabel('y');
+zlabel('z');
+
+% Plotga sarlavha qo'shish (o'zbek tilida, masaladagidek)
+title('z = -2sin^2(0.7y) funksiyasining 3D sirt grafigi');
+
+% Rang shkalasini qo'shish (ixtiyoriy)
+colorbar;
+
+% Panjarani yoqish (ixtiyoriy)
+grid on;
+
+
+2-savol
+
+% Folium of Descartes grafigini chizish
+
+% Birinchi egri chiziq uchun t qiymatlari
+t1 = linspace(-30, -1.6, 500);
+x1 = 3 * t1 ./ (1 + t1.^3);
+y1 = 3 * t1.^2 ./ (1 + t1.^3);
+
+% Ikkinchi egri chiziq uchun t qiymatlari
+t2 = linspace(-0.6, 40, 500);
+x2 = 3 * t2 ./ (1 + t2.^3);
+y2 = 3 * t2.^2 ./ (1 + t2.^3);
+
+% Bitta oynada ikkala egri chiziqni chizish
+figure;
+plot(x1, y1, 'b'); % Birinchi egri chiziqni ko'k rangda chizamiz
+hold on;
+plot(x2, y2, 'r'); % Ikkinchi egri chiziqni qizil rangda chizamiz
+hold off;
+
+% O'qlarga etiketlar qo'shish
+xlabel('x');
+ylabel('y');
+
+% Grafikga sarlavha berish
+title('Folium of Descartes');
+
+% Panjara qo'shish
+grid on;
+
+% Afsona qo'shish (ixtiyoriy)
+legend('-30 \leq t \leq -1.6', '-0.6 \leq t \leq 40');
+
+% Koordinata o'qlarining nisbatini sozlash (ixtiyoriy)
+axis equal;
+
+
+
+
+3-savol
+% Berilgan qiymatlar
+F = 100000;     % Kelajakdagi qiymat ($)
+r_annual = 4.35; % Yillik foiz stavkasi (%)
+r = r_annual / 100;  % Yillik foiz stavkasi (o'nlik)
+yillar = 5:10;     % Yillar soni
+
+% Jadvalning sarlavhasini chiqarish
+disp('-------------------------');
+disp('  Yillar | Oylik to''lov ');
+disp('-------------------------');
+
+% Har bir yil uchun oylik to'lovni hisoblash va chiqarish
+for N = yillar
+    oylik_stavka = r / 12;
+    davrlar_soni = 12 * N;
+    P = F * oylik_stavka / ((1 + oylik_stavka)^davrlar_soni - 1);
+    fprintf('   %2d  |   $%8.2f   \n', N, P);
+end
+
+% Jadvalning pastki qismini chiqarish
+disp('-------------------------');
+
+
+
+
+
+4-savol
+
+function H = Harmean(x)
+% Harmean(x) musbat sonlar to'plamining o'rtacha garmonik qiymatini hisoblaydi.
+% Kirish argumenti x - sonlardan iborat vektor.
+% Chiqish argumenti H - sonlar to'plamining o'rtacha garmonik qiymati.
+
+    n = length(x); % Vektordagi elementlar sonini aniqlash
+    sum_of_reciprocals = sum(1./x); % Elementlarning teskari qiymatlari yig'indisini hisoblash
+    H = n / sum_of_reciprocals; % O'rtacha garmonik qiymatni hisoblash
+end
+
+% Parallel ulangan rezistorlarning qarshilik qiymatlari (Omda)
+rezistorlar = [10, 20, 30];
+n_rezistorlar = length(rezistorlar);
+
+% O'rtacha garmonik qiymatni hisoblash uchun Harmean funksiyasidan foydalanish
+harmonic_mean_R = Harmean(rezistorlar);
+
+% Ekvivalent qarshilikni hisoblash
+% Ekvivalent qarshilik = (O'rtacha garmonik qiymat) / (Rezistorlar soni)
+R_ekvivalent = harmonic_mean_R / n_rezistorlar;
+
+% Natijani ko'rsatish
+fprintf('Parallel ulangan rezistorlarning qarshilik qiymatlari (Om): ');
+fprintf('%g ', rezistorlar);
+fprintf('\n');
+fprintf('Rezistorlarning o''rtacha garmonik qiymati: %.2f Om\n', harmonic_mean_R);
+fprintf('Ekvivalent qarshilik: %.2f Om\n', R_ekvivalent);
+
+
+
+
+5-savol
+
+% Pifagor teoremasini qanoatlantiradigan a, b va c uchliklarini topish
+
+% Natijalarni saqlash uchun bo'sh massivni yaratish
+pifagor_uchliklari = [];
+
+% 1 dan 50 gacha bo'lgan a, b va c qiymatlari bo'ylab iteratsiya qilish
+for a = 1:50
+    for b = a:50 % a <= b shartini ta'minlash uchun
+        for c = 1:50
+            % Pifagor teoremasini tekshirish
+            if a^2 + b^2 == c^2
+                % Uchlikni natijalar massiviga qo'shish
+                pifagor_uchliklari = [pifagor_uchliklari; a, b, c];
+            end
+        end
+    end
+end
+
+% Natijalarni uch ustunli jadvalda ko'rsatish
+disp('---------------------');
+disp('   a   |   b   |   c   ');
+disp('---------------------');
+
+for i = 1:size(pifagor_uchliklari, 1)
+    fprintf('  %3d  |  %3d  |  %3d  \n', pifagor_uchliklari(i, 1), pifagor_uchliklari(i, 2), pifagor_uchliklari(i, 3));
+end
+
+disp('---------------------');
+
+
