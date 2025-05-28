@@ -1,0 +1,166 @@
+1-savol
+
+% Define the time range
+t = linspace(0, 30, 500); % Use 500 points for a smooth curve
+
+% Calculate the x, y, and z coordinates
+x = (((t - 15).^2) + 1) / 100 .* sin(3*t);
+y = (((t - 15).^2) + 1) / 100 .* cos(3*t);
+z = 0.4 * t.^(3/2) / 2;
+
+% Create a new figure window
+figure;
+
+% Plot the trajectory in 3D
+plot3(x, y, z);
+
+% Add labels to the axes
+xlabel('x');
+ylabel('y');
+zlabel('z');
+
+% Add a title to the plot
+title('Harakatlanuvchi zarrachaning holati');
+
+% Add a grid for better visualization (optional)
+grid on;
+
+% Keep the aspect ratio consistent (optional)
+axis equal;
+
+
+
+
+
+2-savol
+
+% Given parameters
+R = 4;      % Resistance in Ohms
+L = 1.3;    % Inductance in Henrys
+V = 12;     % Voltage in Volts
+
+% Time vector from 0 to 2 seconds with a small step for smooth plotting
+t = linspace(0, 2, 500);
+
+% Initialize the current vector
+i = zeros(size(t));
+
+% Calculate the current for each time point
+for index = 1:length(t)
+    if t(index) >= 0 && t(index) <= 0.5
+        i(index) = (V/R) * (1 - exp(-(R*t(index))/L));
+    elseif t(index) > 0.5
+        i(index) = (V/R) * exp(-(R*t(index))/L) * (exp((0.5*R)/L) - 1);
+    end
+end
+
+% Create a new figure window
+figure;
+% Plot the current as a function of time
+plot(t, i);
+
+% Add labels to the axes
+xlabel('t (s)');
+ylabel('i (A)');
+
+% Add a title to the plot
+title('Current in RL Circuit');
+
+% Add a grid for better visualization
+grid on;
+
+
+
+
+3-savol
+
+% Given values
+F = 200000;         % Future value ($)
+r_annual = 4.85;     % Annual interest rate (%)
+r = r_annual / 100;  % Annual interest rate (decimal)
+years = 10:15;       % Number of years
+
+% Display header for the table
+disp('-------------------------');
+disp('  Years | Monthly Deposit ');
+disp('-------------------------');
+
+% Calculate and display the monthly deposit for each year
+for N = years
+    monthly_rate = r / 12;
+    number_of_periods = 12 * N;
+    P = F * monthly_rate / ((1 + monthly_rate)^number_of_periods - 1);
+    fprintf('   %2d  |   $%8.2f   \n', N, P);
+end
+
+% Display footer for the table
+disp('-------------------------');
+4-savol
+
+function HI = HI_HeatIn(T, R)
+% HI_HeatIn: Calculates the Heat Index (HI) in Fahrenheit.
+%   HI = HI_HeatIn(T, R) returns the heat index for a given
+%   temperature (T in Fahrenheit) and relative humidity (R in percent).
+
+    % Constants from the formula
+    C1 = -42.379;
+    C2 = 2.04901523;
+    C3 = 10.14333127;
+    C4 = -0.22475541;
+    C5 = -6.83783e-3;
+    C6 = 5.481717e-2;
+    C7 = 1.22874e-3;
+    C8 = 8.5282e-4;
+    C9 = -1.99e-6;
+
+    % Calculate the Heat Index using the formula
+    HI = C1 + (C2 * T) + (C3 * R) + (C4 * T * R) + (C5 * T^2) + (C6 * R^2) + ...
+         (C7 * T^2 * R) + (C8 * T * R^2) + (C9 * T^2 * R^2);
+
+    % Round the Heat Index to the nearest whole number
+    HI = round(HI);
+end
+
+% --- Calculate Heat Index for the given conditions ---
+
+% a) T = 95 °F, R = 80 %
+T_a = 95;
+R_a = 80;
+HI_a = HI_HeatIn(T_a, R_a);
+fprintf('Heat Index for T = %d °F and R = %d %% is: %d °F\n', T_a, R_a, HI_a);
+
+% b) T = 100 °F, R = 100 % (saunadagi holat)
+T_b = 100;
+R_b = 100;
+HI_b = HI_HeatIn(T_b, R_b);
+fprintf('Heat Index for T = %d °F and R = %d %% is: %d °F (saunadagi holat)\n', T_b, R_b, HI_b);
+5-savol
+
+% Teskari Fibonachchi doimiysini hisoblash uchun soddalashtirilgan skript
+
+% Hisoblanadigan hadlar soni
+n_qiymatlari = [10, 50, 100];
+
+% Har bir hadlar soni uchun hisoblashni amalga oshirish
+for n = n_qiymatlari
+    % Dastlabki ikki Fibonachchi soni
+    fib1 = 1;
+    fib2 = 1;
+
+    % Teskari Fibonachchi doimiysining yig'indisini hisoblash
+    if n >= 1
+        sum_fib = 1/fib1;
+        if n >= 2
+            sum_fib = sum_fib + 1/fib2;
+            for i = 3:n
+                fib_next = fib1 + fib2;
+                sum_fib = sum_fib + 1/fib_next;
+                fib1 = fib2;
+                fib2 = fib_next;
+            end
+        end
+        fprintf('%d ta had uchun teskari Fibonachchi doimiysi: %f\n', n, sum_fib);
+    else
+        disp('Hadlar soni kamida 1 ga teng bo''lishi kerak.');
+    end
+end
